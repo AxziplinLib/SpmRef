@@ -1,5 +1,5 @@
 //
-//  SubCommandTests.swift
+//  ActionTests.swift
 //  XcodebuildKitTests
 //
 //  Created by devedbox on 2018/1/20.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import XcodebuildKit
 
-class SubcommandTests: XCTestCase {
+class ActionTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
@@ -17,58 +17,58 @@ class SubcommandTests: XCTestCase {
     }
     
     func testCleanCommand() {
-        let subcommand = Xcodebuild.Subcommand.clean
-        XCTAssertEqual("clean", subcommand.command)
+        let Action = Xcodebuild.Action.clean
+        XCTAssertEqual("clean", Action.command)
     }
     
     func testBuildCommand() {
-        let subcommand = Xcodebuild.Subcommand.build
-        XCTAssertEqual("build", subcommand.command)
+        let Action = Xcodebuild.Action.build
+        XCTAssertEqual("build", Action.command)
     }
     
     func testTestCommand() {
-        let subcommand = Xcodebuild.Subcommand.test
-        XCTAssertEqual("test", subcommand.command)
+        let Action = Xcodebuild.Action.test
+        XCTAssertEqual("test", Action.command)
     }
     
     func testInstallCommand() {
-        let subcommand = Xcodebuild.Subcommand.install
-        XCTAssertEqual("install", subcommand.command)
+        let Action = Xcodebuild.Action.install
+        XCTAssertEqual("install", Action.command)
     }
     
     func testInstallSrcCommand() {
-        let subcommand = Xcodebuild.Subcommand.installSrc
-        XCTAssertEqual("install-src", subcommand.command)
+        let Action = Xcodebuild.Action.installSrc
+        XCTAssertEqual("install-src", Action.command)
     }
     
     func testAnalyzeCommand() {
-        let subcommand = Xcodebuild.Subcommand.analyze
-        XCTAssertEqual("analyze", subcommand.command)
+        let Action = Xcodebuild.Action.analyze
+        XCTAssertEqual("analyze", Action.command)
     }
     
     func testArchiveCommand() {
-        let subcommand = Xcodebuild.Subcommand.archive
-        XCTAssertEqual("archive", subcommand.command)
+        let Action = Xcodebuild.Action.archive
+        XCTAssertEqual("archive", Action.command)
     }
     
     func testBuildForTestingCommand() {
-        let subcommand = Xcodebuild.Subcommand.buildForTesting
-        XCTAssertEqual("build-for-testing", subcommand.command)
+        let Action = Xcodebuild.Action.buildForTesting
+        XCTAssertEqual("build-for-testing", Action.command)
     }
     
     func testTestWithoutBuildingCommand() {
-        let subcommand = Xcodebuild.Subcommand.testWithoutBuilding
-        XCTAssertEqual("test-without-building", subcommand.command)
+        let Action = Xcodebuild.Action.testWithoutBuilding
+        XCTAssertEqual("test-without-building", Action.command)
     }
     
     func testCleanBuildCommand() {
-        let subcommand: Xcodebuild.Subcommand = [.build, .clean]
-        XCTAssertEqual("build clean", subcommand.command)
+        let Action: Xcodebuild.Action = [.build, .clean]
+        XCTAssertEqual("build clean", Action.command)
     }
     
     func testNullCommand() {
-        let subcommand: Xcodebuild.Subcommand = []
-        XCTAssertEqual("", subcommand.command)
+        let Action: Xcodebuild.Action = []
+        XCTAssertEqual("", Action.command)
     }
     
     static var allTests = [

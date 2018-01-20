@@ -12,7 +12,10 @@ let package = Package(
             targets: ["SpmRefKit"]),
         .library(
             name: "XcodebuildKit",
-            targets: ["XcodebuildKit"])
+            targets: ["XcodebuildKit"]),
+        .executable(
+            name: "spmref",
+            targets: ["spmref"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -30,6 +33,9 @@ let package = Package(
         .target(
             name: "XcodebuildKit",
             dependencies: []),
+        .target(
+            name: "spmref",
+            dependencies: ["SpmRefKit", "XcodebuildKit"]),
         .testTarget(
             name: "SpmRefTests",
             dependencies: ["SpmRefKit"],

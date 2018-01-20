@@ -12,7 +12,7 @@
 #endif
 
 public struct Xcodebuild {
-    let subcommand: Subcommand = []
+    let action: Action = []
 }
 
 // MARK: - Commands.
