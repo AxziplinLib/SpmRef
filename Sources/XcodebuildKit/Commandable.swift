@@ -6,9 +6,7 @@
 //
 
 /// A type represents a command using in the CLI application.
-public protocol Commandable {
+public protocol Commandable: CustomStringConvertible {
     /// Returns the command string value.
     var command: String { get }
-    /// Returns the description of the command.
-    var description: String { get }
 }
