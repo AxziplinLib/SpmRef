@@ -24,6 +24,9 @@ let package = Package(
         .target(
             name: "SpmRefKit",
             dependencies: []),
+        .target(
+            name: "XcodebuildKit",
+            dependencies: []),
         .testTarget(
             name: "SpmRefTests",
             dependencies: ["SpmRefKit"]),
