@@ -1,14 +1,14 @@
 //
-//  SubCommand.swift
+//  Subcommand.swift
 //  XcodebuildKit
 //
 //  Created by devedbox on 2018/1/20.
 //
 
-// MARK: - SubCommand.
+// MARK: - Subcommand.
 
 extension Xcodebuild {
-    public struct SubCommand: OptionSet {
+    public struct Subcommand: OptionSet {
         /// The element type of the option set.
         public typealias RawValue = UInt
         /// Get the raw value of the option set.
@@ -31,38 +31,38 @@ extension Xcodebuild {
         ///   of `rawValue` potentially represents an element of the option set,
         ///   though raw values may include bits that are not defined as distinct
         ///   values of the `OptionSet` type.
-        public init(rawValue: Xcodebuild.SubCommand.RawValue) {
+        public init(rawValue: Xcodebuild.Subcommand.RawValue) {
             _rawValue = rawValue
         }
         /// Command `build` for building the target in specific workspace or null.
-        public static let build: SubCommand = SubCommand(rawValue: 1 << 1)
+        public static let build: Subcommand = Subcommand(rawValue: 1 << 1)
         /// Command `build-for-testing` for test the targets.
-        public static let buildForTesting: SubCommand = SubCommand(rawValue: 1 << 2)
+        public static let buildForTesting: Subcommand = Subcommand(rawValue: 1 << 2)
         /// Command `analyze` for the static-analyze.
-        public static let analyze: SubCommand = SubCommand(rawValue: 1 << 3)
+        public static let analyze: Subcommand = Subcommand(rawValue: 1 << 3)
         /// Command `archive` for archiving the target to a ipa.
-        public static let archive: SubCommand = SubCommand(rawValue: 1 << 4)
+        public static let archive: Subcommand = Subcommand(rawValue: 1 << 4)
         /// Command `test` for testing the test target.
-        public static let test: SubCommand = SubCommand(rawValue: 1 << 5)
+        public static let test: Subcommand = Subcommand(rawValue: 1 << 5)
         /// Command `test-without-building` for testing the test target without building.
-        public static let testWithoutBuilding: SubCommand = SubCommand(rawValue: 1 << 6)
+        public static let testWithoutBuilding: Subcommand = Subcommand(rawValue: 1 << 6)
         /// Command `install-src` for installing srcs.
-        public static let installSrc: SubCommand = SubCommand(rawValue: 1 << 7)
+        public static let installSrc: Subcommand = Subcommand(rawValue: 1 << 7)
         /// Command `install` for installing.
-        public static let install: SubCommand = SubCommand(rawValue: 1 << 8)
+        public static let install: Subcommand = Subcommand(rawValue: 1 << 8)
         /// Command `clean` for cleaning the targets.
-        public static let clean: SubCommand = SubCommand(rawValue: 1 << 9)
+        public static let clean: Subcommand = Subcommand(rawValue: 1 << 9)
     }
 }
 
-extension Xcodebuild.SubCommand: Hashable {
+extension Xcodebuild.Subcommand: Hashable {
     public var hashValue: Int {
         return Int(_rawValue)
     }
 }
 
 /// All available sub commands for `xcodebuild`.
-private let _availableSubCommandsMap: [Xcodebuild.SubCommand: String] =
+private let _availableSubCommandsMap: [Xcodebuild.Subcommand: String] =
 [.clean : "clean",
  .build : "build",
  .test : "test",
@@ -75,7 +75,7 @@ private let _availableSubCommandsMap: [Xcodebuild.SubCommand: String] =
 
 // MARK: - Commandable Conforming.
 
-extension Xcodebuild.SubCommand: Commandable {
+extension Xcodebuild.Subcommand: Commandable {
     public var command: String {
         return _availableSubCommandsMap.filter({ self.contains($0.key) }).map({ $0.value }).joined(separator: " ")
     }

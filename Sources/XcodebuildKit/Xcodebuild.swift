@@ -6,7 +6,7 @@
 //
 
 public struct Xcodebuild {
-    let subcommand: SubCommand = []
+    let subcommand: Subcommand = []
 }
 
 // MARK: - Commands.
