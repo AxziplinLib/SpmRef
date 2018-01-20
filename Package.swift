@@ -10,6 +10,9 @@ let package = Package(
         .library(
             name: "SpmRefKit",
             targets: ["SpmRefKit"]),
+        .library(
+            name: "XcodebuildKit",
+            targets: ["XcodebuildKit"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
