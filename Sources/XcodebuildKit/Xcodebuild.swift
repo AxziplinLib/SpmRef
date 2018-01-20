@@ -5,6 +5,12 @@
 //  Created by devedbox on 2018/1/20.
 //
 
+#if os(Linux)
+    import Glibc
+#else
+    import Darwin
+#endif
+
 public struct Xcodebuild {
     let subcommand: Subcommand = []
 }
