@@ -29,6 +29,11 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "SpmRefTests",
-            dependencies: ["SpmRefKit"]),
+            dependencies: ["SpmRefKit"],
+            path: "Tests/SpmRefTests"),
+        .testTarget(
+            name: "XcodebuildKitTests",
+            dependencies: ["XcodebuildKit"],
+            path: "Tests/XcodebuildKitTests"),
     ]
 )
