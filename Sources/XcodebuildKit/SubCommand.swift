@@ -35,23 +35,23 @@ extension Xcodebuild {
             _rawValue = rawValue
         }
         /// Command `build` for building the target in specific workspace or null.
-        public static let build: SubCommand = SubCommand(rawValue: 1)
+        public static let build: SubCommand = SubCommand(rawValue: 1 << 1)
         /// Command `build-for-testing` for test the targets.
-        public static let buildForTesting: SubCommand = SubCommand(rawValue: 2)
+        public static let buildForTesting: SubCommand = SubCommand(rawValue: 1 << 2)
         /// Command `analyze` for the static-analyze.
-        public static let analyze: SubCommand = SubCommand(rawValue: 3)
+        public static let analyze: SubCommand = SubCommand(rawValue: 1 << 3)
         /// Command `archive` for archiving the target to a ipa.
-        public static let archive: SubCommand = SubCommand(rawValue: 4)
+        public static let archive: SubCommand = SubCommand(rawValue: 1 << 4)
         /// Command `test` for testing the test target.
-        public static let test: SubCommand = SubCommand(rawValue: 5)
+        public static let test: SubCommand = SubCommand(rawValue: 1 << 5)
         /// Command `test-without-building` for testing the test target without building.
-        public static let testWithoutBuilding: SubCommand = SubCommand(rawValue: 6)
+        public static let testWithoutBuilding: SubCommand = SubCommand(rawValue: 1 << 6)
         /// Command `install-src` for installing srcs.
-        public static let installSrc: SubCommand = SubCommand(rawValue: 7)
+        public static let installSrc: SubCommand = SubCommand(rawValue: 1 << 7)
         /// Command `install` for installing.
-        public static let install: SubCommand = SubCommand(rawValue: 8)
+        public static let install: SubCommand = SubCommand(rawValue: 1 << 8)
         /// Command `clean` for cleaning the targets.
-        public static let clean: SubCommand = SubCommand(rawValue: 9)
+        public static let clean: SubCommand = SubCommand(rawValue: 1 << 9)
     }
 }
 

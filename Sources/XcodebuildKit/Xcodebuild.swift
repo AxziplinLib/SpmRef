@@ -5,7 +5,9 @@
 //  Created by devedbox on 2018/1/20.
 //
 
-public struct Xcodebuild { }
+public struct Xcodebuild {
+    let subcommand: SubCommand = []
+}
 
 // MARK: - Commands.
 
