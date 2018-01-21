@@ -314,3 +314,12 @@ extension XcodeBuild.Option {
         return XcodeBuild.Option(option: "usage")
     }
 }
+
+// MARK: - Output Format.
+
+extension XcodeBuild.Option {
+    /// output as JSON (note: -json implies -quiet)
+    public static var json: XcodeBuild.Option {
+        return XcodeBuild.Option(option: "json")
+    }
+}
