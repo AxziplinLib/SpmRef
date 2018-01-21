@@ -9,7 +9,7 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(name: "SpmRefKit", targets: ["SpmRefKit"]),
         .library(name: "ToolKit", targets: ["ToolKit"]),
-        .library(name: "XcodebuildKit", targets: ["XcodebuildKit"]),
+        .library(name: "XcodeBuildKit", targets: ["XcodeBuildKit"]),
         .executable(name: "spmref", targets: ["spmref"])
     ],
     dependencies: [
@@ -29,12 +29,12 @@ let package = Package(
             name: "ToolKit",
             dependencies: []),
         .target(
-            name: "XcodebuildKit",
+            name: "XcodeBuildKit",
             dependencies: []),
         .target(
             name: "spmref",
             dependencies: ["SpmRefKit",
-                           "XcodebuildKit",
+                           "XcodeBuildKit",
                            "SwiftPM"]),
         .testTarget(
             name: "SpmRefTests",
@@ -45,8 +45,8 @@ let package = Package(
             dependencies: ["ToolKit"],
             path: "Tests/ToolKitTests"),
         .testTarget(
-            name: "XcodebuildKitTests",
-            dependencies: ["XcodebuildKit"],
-            path: "Tests/XcodebuildKitTests"),
+            name: "XcodeBuildKitTests",
+            dependencies: ["XcodeBuildKit"],
+            path: "Tests/XcodeBuildKitTests"),
     ]
 )
