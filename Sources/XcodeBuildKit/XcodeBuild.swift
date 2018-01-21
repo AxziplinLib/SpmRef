@@ -16,6 +16,20 @@ public struct XcodeBuild {
     var options: [Option] = []
 }
 
+extension XcodeBuild {
+    /// Creates a XcodeBuild command with the given actions and options.
+    ///
+    /// - Parameter actions: The actions to specify the command to run with.
+    /// - Parameter options: The options to run with.
+    ///
+    /// - Returns: A XcodeBuild value.
+    public static func execute(_ actions: Action = [], options: Option...) -> XcodeBuild {
+        return
+            XcodeBuild(actions: actions,
+                       options: options)
+    }
+}
+
 // MARK: - Commands.
 
 extension XcodeBuild {
@@ -38,6 +52,8 @@ extension XcodeBuild {
         return XcodeBuild(actions: actions, options: options).arguments
     }
 }
+
+// MARK: - Commandable Conforming.
 
 extension XcodeBuild: Commandable {
     /// Get the arguments of the commands.
@@ -66,5 +82,19 @@ extension XcodeBuild {
         return
             run("xcrun",
                 arguments: XcodeBuild.arguments(options: .version))
+    }
+}
+
+// MARK: - Run Commands.
+
+extension XcodeBuild {
+    /// Launch the `xcodebuild` command of XcodeBuild.
+    public func launch() -> String {
+        let args = arguments
+        precondition(args.count > 1, "The arguments of xcodebuild should not be 0.")
+        
+        return
+            run(args[0],
+                arguments: Array(args.dropFirst()))
     }
 }

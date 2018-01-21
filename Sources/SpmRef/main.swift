@@ -16,7 +16,8 @@ import Foundation
 // print(envPaths)
 // print(result)
 
-// print(FileManager.default.currentDirectoryPath)
+print(FileManager.default.currentDirectoryPath)
+print(XcodeBuild.execute(options: .showsSDKs).launch())
 print(XcodeBuild.xcodeVersion)
 
 print("Hello, World!")
