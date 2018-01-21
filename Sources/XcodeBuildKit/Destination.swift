@@ -179,13 +179,13 @@ extension XcodeBuild.Destination {
 // MARK: - Commandable Conforming.
 
 extension XcodeBuild.Destination: Commandable {
-    public var command: String {
+    public var arguments: [String] {
         let args = [("platform", platform.rawValue),
                     ("arch", architecture?.rawValue),
                     ("name", name),
                     ("id", id),
                     ("OS", OS)]
-        return "'\(args.flatMap({ $0.1 == nil ? nil : $0.0+"="+$0.1! }).joined(separator: ","))'"
+        return ["'\(args.flatMap({ $0.1 == nil ? nil : $0.0+"="+$0.1! }).joined(separator: ","))'"]
     }
     
     public var description: String {

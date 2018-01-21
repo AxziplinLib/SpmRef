@@ -12,25 +12,24 @@ extension XcodeBuild {
         /// The option using to run xodebuild command.
         let option: String
         /// The arguments of the option.
-        let arguments: String?
+        let args: String?
         /// Indicates the option is build settings or not. Default is false.
         var isBuildSettings: Bool = false
     }
 }
 
 extension XcodeBuild.Option {
-    public init(option: String, arguments: String? = nil) {
+    public init(option: String, args: String? = nil) {
         self.option = option
-        self.arguments = arguments
+        self.args = args
     }
 }
 
 // MARK: - Commandable Conforming.
 
 extension XcodeBuild.Option: Commandable {
-    public var command: String {
-        let args = [isBuildSettings ? "" : "-" + option, arguments]
-        return args.flatMap({ $0 }).joined(separator: " ")
+    public var arguments: [String] {
+        return [isBuildSettings ? "" : "-" + option, args].flatMap({ $0 })
     }
     
     public var description: String {
@@ -52,13 +51,13 @@ extension XcodeBuild.Option {
     ///
     /// - Parameter name: The name of the project: `name.xcodeproj`.
     public static func project(named name: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "project", arguments: name)
+        return XcodeBuild.Option(option: "project", args: name)
     }
     /// Build the target specified by targetname.
     ///
     /// - Parameter name: The name of the target.
     public static func target(named name: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "target", arguments: name)
+        return XcodeBuild.Option(option: "target", args: name)
     }
     /// Build all the targets in the specified project.
     public static var allTargets: XcodeBuild.Option {
@@ -68,38 +67,38 @@ extension XcodeBuild.Option {
     ///
     /// - Parameter name: The name of the workspace: `name.xcworkspace`.
     public static func workspace(named name: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "workspace", arguments: name)
+        return XcodeBuild.Option(option: "workspace", args: name)
     }
     /// Build the scheme specified by schemename.  Required if building a workspace.
     ///
     /// - Parameter name: The name of the scheme.
     public static func scheme(named name: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "scheme", arguments: name)
+        return XcodeBuild.Option(option: "scheme", args: name)
     }
     /// Use the destination device described by destinationspecifier.
     /// Defaults to a destination that is compatible with the selected scheme.
     ///
     /// - Parameter des: A destination to build the target.
     public static func destination(_ des: XcodeBuild.Destination) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "destination", arguments: des.command)
+        return XcodeBuild.Option(option: "destination", args: des.command)
     }
     /// Use the specified timeout when searching for a destination device.
     /// The default is 30 seconds.
     public static func destination(timeout: Double = 30.0) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "destination-timeout", arguments: "\(timeout)")
+        return XcodeBuild.Option(option: "destination-timeout", args: "\(timeout)")
     }
     /// Use the build configuration specified by configurationname when building each target.
     public static func configuration(named name: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "configuration", arguments: name)
+        return XcodeBuild.Option(option: "configuration", args: name)
     }
     /// Use the architecture specified by architecture when building each target.
     public static func arch(_ arch: Architecture) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "arch", arguments: arch.rawValue)
+        return XcodeBuild.Option(option: "arch", args: arch.rawValue)
     }
     /// Build an Xcode project or workspace against the specified SDK, using build tools appropriate
     /// for that SDK. The argument may be an absolute path to an SDK, or the canonical name of an SDK.
     public static func sdk(fullPathOrName arg: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "sdk", arguments: arg)
+        return XcodeBuild.Option(option: "sdk", args: arg)
     }
     /// Lists all available SDKs that Xcode knows about, including their canonical names suitable
     /// for use with -sdk. Does not initiate a build.
@@ -119,40 +118,40 @@ extension XcodeBuild.Option {
     /// Turns the address sanitizer on or off. This overrides the setting for the launch action
     /// of a scheme in a workspace.
     public static func enableAddressSanitizer(_ enabled: Bool) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "enableAddressSanitizer", arguments: enabled ? "YES" : "NO")
+        return XcodeBuild.Option(option: "enableAddressSanitizer", args: enabled ? "YES" : "NO")
     }
     /// Turns the thread sanitizer on or off. This overrides the setting for the launch action
     /// of a scheme in a workspace.
     public static func enableThreadSanitizer(_ enabled: Bool) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "enableThreadSanitizer", arguments: enabled ? "YES" : "NO")
+        return XcodeBuild.Option(option: "enableThreadSanitizer", args: enabled ? "YES" : "NO")
     }
     /// Turns the undefined behavior sanitizer on or off. This overrides the setting for the
     /// launch action of a scheme in a workspace.
     public static func enableUndefinedBehaviorSanitizer(_ enabled: Bool) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "enableUndefinedBehaviorSanitizer", arguments: enabled ? "YES" : "NO")
+        return XcodeBuild.Option(option: "enableUndefinedBehaviorSanitizer", args: enabled ? "YES" : "NO")
     }
     /// Turns code coverage on or off during testing. This overrides the setting for the test
     /// action of a scheme in a workspace.
     public static func enableCodeCoverage(_ enabled: Bool) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "enableCodeCoverage", arguments: enabled ? "YES" : "NO")
+        return XcodeBuild.Option(option: "enableCodeCoverage", args: enabled ? "YES" : "NO")
     }
     /// Specifies ISO 639-1 language during testing. This overrides the setting for the test
     /// action of a scheme in a workspace.
     public static func testLanguage(_ lauguage: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "testLanguage", arguments: lauguage)
+        return XcodeBuild.Option(option: "testLanguage", args: lauguage)
     }
     /// Specifies ISO 3166-1 region during testing. This overrides the setting for the test
     /// action of a scheme in a workspace.
     public static func testRegion(_ region: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "testRegion", arguments: region)
+        return XcodeBuild.Option(option: "testRegion", args: region)
     }
     /// Overrides the folder that should be used for derived data when performing an action on a scheme in a workspace.
     public static func derivedDataPath(_ path: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "derivedDataPath", arguments: path)
+        return XcodeBuild.Option(option: "derivedDataPath", args: path)
     }
     /// Writes a bundle to the specified path with results from performing an action on a scheme in a workspace.
     public static func resultBundlePath(_ path: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "resultBundlePath", arguments: path)
+        return XcodeBuild.Option(option: "resultBundlePath", args: path)
     }
     /// Allow XcodeBuild to communicate with the Apple Developer website. For automatically signed targets,
     /// XcodeBuild will create and update profiles, app IDs, and certificates. For manually signed targets,
@@ -177,15 +176,15 @@ extension XcodeBuild.Option {
     /// Specifies the path for the archive produced by the archive action, or specifies the
     /// archive that should be exported when -exportArchive is passed.
     public static func archivePath(_ path: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "archivePath", arguments: path)
+        return XcodeBuild.Option(option: "archivePath", args: path)
     }
     /// Specifies the destination for the exported product, including the name of the exported file.
     public static func exportPath(_ path: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "exportPath", arguments: path)
+        return XcodeBuild.Option(option: "exportPath", args: path)
     }
     /// Specifies options for -exportArchive.  XcodeBuild -help can print the full set of available options.
     public static func exportOptionsPlist(_ path: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "exportOptionsPlist", arguments: path)
+        return XcodeBuild.Option(option: "exportOptionsPlist", args: path)
     }
     /// Exports localizations to XLIFF files. Requires -project and -localizationPath.
     /// Cannot be passed along with an action.
@@ -205,7 +204,7 @@ extension XcodeBuild.Option {
     /// May be repeated to specify multiple languages. May be excluded to specify an
     /// export includes only development language strings.
     public static func exportLanguage(_ language: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "exportLanguage", arguments: language)
+        return XcodeBuild.Option(option: "exportLanguage", args: language)
     }
 }
 
@@ -214,13 +213,13 @@ extension XcodeBuild.Option {
     /// These settings will override all other settings, including settings passed
     /// individually on the command line.
     public static func xcconfig(_ filename: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "xcconfig", arguments: filename)
+        return XcodeBuild.Option(option: "xcconfig", args: filename)
     }
     /// Specifies test run parameters. Can only be used with the test-without-building action.
     /// Cannot be used with -workspace or -project. See <x-man-page://5/XcodeBuild.xctestrun>
     /// for file format details.
     public static func xctestrun(_ path: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "xctestrun", arguments: path)
+        return XcodeBuild.Option(option: "xctestrun", args: path)
     }
 }
 
@@ -230,14 +229,14 @@ extension XcodeBuild.Option {
     /// is the name of a unit or UI testing bundle as shown in the Test Navigator. An xcodebuild command can combine
     /// multiple constraint options, but -only-testing: has precedence over -skip-testing:.
     public static func skipTesting(_ testIdentifier: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "skip-testing", arguments: testIdentifier)
+        return XcodeBuild.Option(option: "skip-testing", args: testIdentifier)
     }
     /// Constrains a test action to only testing a specified identifier, and excluding all other identifiers.
     /// Test identifiers have the form TestTarget[/TestClass[/TestMethod]]. The TestTarget component of an identifier
     /// is the name of a unit or UI testing bundle as shown in the Test Navigator. An xcodebuild command can combine
     /// multiple constraint options, but -only-testing: has precedence over -skip-testing:.
     public static func onlyTesting(_ testIdentifier: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "only-testing", arguments: testIdentifier)
+        return XcodeBuild.Option(option: "only-testing", args: testIdentifier)
     }
     /// Do not run test bundles in parallel on the specified destinations. Testing will occur on each destination serially.
     public static var disableConcurrentTesting: XcodeBuild.Option {
@@ -245,11 +244,11 @@ extension XcodeBuild.Option {
     }
     /// Constrain the number of physical devices on which to test concurrently.
     public static func maximumConcurrentTestDeviceDestinations(_ count: UInt) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "maximum-concurrent-test-device-destinations", arguments: "\(count)")
+        return XcodeBuild.Option(option: "maximum-concurrent-test-device-destinations", args: "\(count)")
     }
     /// Constrain the number of simulator devices on which to test concurrently.
     public static func maximumConcurrentTestSimulatorDestinations(_ count: UInt) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "maximum-concurrent-test-simulator-destinations", arguments: "\(count)")
+        return XcodeBuild.Option(option: "maximum-concurrent-test-simulator-destinations", args: "\(count)")
     }
     /// Print the commands that would be executed, but do not execute them.
     public static var dryRun: XcodeBuild.Option {
@@ -269,18 +268,18 @@ extension XcodeBuild.Option {
     /// A detailed reference of Xcode build settings can be found
     /// at: <https://help.apple.com/xcode/mac/current/#/itcaec37c2a6>
     public static func buildSettings(_ buildSettings: String, value: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "\(buildSettings)=\(value)", arguments: nil, isBuildSettings: true)
+        return XcodeBuild.Option(option: "\(buildSettings)=\(value)", args: nil, isBuildSettings: true)
     }
     /// Set the user default `userdefault` to `value`.
     public static func userDefault(_ userDefault: String, value: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "\(userDefault)=\(value)", arguments: nil, isBuildSettings: true)
+        return XcodeBuild.Option(option: "\(userDefault)=\(value)", args: nil, isBuildSettings: true)
     }
 }
 
 extension XcodeBuild.Option {
     /// Use a given toolchain, specified with either an identifier or name.
     public static func toolchain(_ identifierOrName: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "toolchain", arguments: identifierOrName)
+        return XcodeBuild.Option(option: "toolchain", args: identifierOrName)
     }
     /// Do not print any output except for warnings and errors.
     public static var quiet: XcodeBuild.Option {

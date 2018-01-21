@@ -12,7 +12,11 @@ import Foundation
 
 // Foundation.Process.launchedProcess(launchPath: "/bin/echo", arguments: ["This is an echo message."])
 
-let result = try Process.checkNonZeroExit(args: "XcodeBuild", "-showsdks")
-print(result)
+// let result = try Process.checkNonZeroExit(args: "XcodeBuild", "-showsdks")
+// print(envPaths)
+// print(result)
+
+// print(FileManager.default.currentDirectoryPath)
+print(XcodeBuild.xcodeVersion)
 
 print("Hello, World!")

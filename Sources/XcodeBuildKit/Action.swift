@@ -76,8 +76,8 @@ private let _availableActionsMap: [XcodeBuild.Action: String] =
 // MARK: - Commandable Conforming.
 
 extension XcodeBuild.Action: Commandable {
-    public var command: String {
-        return _availableActionsMap.filter({ self.contains($0.key) }).map({ $0.value }).joined(separator: " ")
+    public var arguments: [String] {
+        return _availableActionsMap.filter({ self.contains($0.key) }).map({ $0.value })
     }
     
     public var description: String {
