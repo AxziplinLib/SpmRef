@@ -27,7 +27,9 @@ public enum Platform: String {
     case tvOSSimulator = "tvOS Simulator"
 }
 
-public enum Device: String {
+// MARK: - iOS Device.
+
+public enum iOSDevice: String {
     /// Raw value type.
     public typealias RawValue = String
     
@@ -80,7 +82,17 @@ public enum Device: String {
     case iPadPro12_9Inch2 = "iPad Pro (12.9-inch) (2nd generation)"
     case iPadRetina = "iPad Retina"
     
-    // MARK: Apple TV.
+    // MARK: Generic.
+    
+    case iOSGeneric = "Generic iOS Device"
+    case iOSSimulatorGeneric = "Generic iOS Simulator Device"
+}
+
+// MARK: - Apple TV Device.
+
+public enum AppleTVDevice: String {
+    /// Raw value type.
+    public typealias RawValue = String
     
     case AppleTV = "Apple TV"
     case AppleTV2 = "Apple TV (2nd generation)"
@@ -88,17 +100,17 @@ public enum Device: String {
     case AppleTV3RevA = "Apple TV (3rd generation) Rev A"
     case AppleTV4 = "Apple TV (4th generation)"
     case AppleTV4K = "Apple TV 4K"
-    
-    // MARK: Apple Watch.
+}
+
+// MARK: - Apple Watch Device.
+
+public enum AppleWatchDevice: String {
+    /// Raw value type.
+    public typealias RawValue = String
     
     case AppleWatch = "Apple Watch"
     case AppleWatchSport = "Apple Watch Sport"
     case AppleWatchEdition = "Apple Watch Edition"
     case AppleWatchHermès = "Apple Watch Hermès"
     case AppleWatchNikePlus = "Apple Watch Nike+"
-    
-    // MARK: Generic.
-    
-    case iOSGeneric = "Generic iOS Device"
-    case iOSSimulatorGeneric = "Generic iOS Simulator Device"
 }
