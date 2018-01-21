@@ -41,9 +41,14 @@ public func executable(_ name: String) -> String? {
 /// - Parameter arguments: The arguments for the command to run with.
 ///
 /// - Returns: The stdoutput or stderror results.
-public func run(_ command: String, arguments: [String]) -> String {
+public func run(_ command: String, arguments: [String], `in` currentWorkingDirectory: String? = nil) -> String {
     // Creates a new process.
     let process = Process()
+    // Changing the current working path if needed.
+    if let cwd = currentWorkingDirectory {
+        process.currentDirectoryPath = cwd
+    }
+    
     process.launchPath = executable(command)
     process.arguments = arguments
     // Using custom output.

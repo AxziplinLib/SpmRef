@@ -109,12 +109,16 @@ private func _checkVersions() {
 
 extension XcodeBuild {
     /// Launch the `xcodebuild` command of XcodeBuild.
-    public func launch() -> String {
+    ///
+    /// - Parameter cwd: The current-working-directory of the process to run.
+    /// - Returns: The result of the `xcodebuild` command.
+    public func launch(`in` cwd: String? = nil) -> String {
         let args = arguments
         precondition(args.count > 1, "The arguments of xcodebuild should not be 0.")
         _checkVersions()
         return
             run(args[0],
-                arguments: Array(args.dropFirst()))
+                arguments: Array(args.dropFirst()),
+                in: cwd)
     }
 }
