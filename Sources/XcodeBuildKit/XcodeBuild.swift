@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Rainbow
 
 /// A type represents the `xcodebuild` command program.
 public struct XcodeBuild {
@@ -87,12 +88,30 @@ extension XcodeBuild {
 
 // MARK: - Run Commands.
 
+/// Check the current build version and xcode version and report to console
+/// if needed.
+private func _checkVersions() {
+    let version = XcodeBuild.version.split(separator: "\n").joined(separator: "  ")
+    let xcode_version = XcodeBuild.xcodeVersion.split(separator: "\n").joined(separator: " ")
+    if version != xcode_version {
+        print("""
+            
+            The Xcode toolchains has updated.
+            newer is '\(xcode_version)'
+            current is '\(version)'.
+            Please check the diffs between versions!!!
+            
+            """
+            .red)
+    }
+}
+
 extension XcodeBuild {
     /// Launch the `xcodebuild` command of XcodeBuild.
     public func launch() -> String {
         let args = arguments
         precondition(args.count > 1, "The arguments of xcodebuild should not be 0.")
-        
+        _checkVersions()
         return
             run(args[0],
                 arguments: Array(args.dropFirst()))
