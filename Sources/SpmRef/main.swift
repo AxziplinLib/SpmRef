@@ -10,11 +10,9 @@ import XcodebuildKit
 import Basic
 import Foundation
 
-// try exec(path: "/bin/echo", args: [])
-let process = Process()
-process.launchPath = "/bin/echo"
-process.arguments = ["This is an echo message."]
-process.launch()
-process.waitUntilExit()
+// Foundation.Process.launchedProcess(launchPath: "/bin/echo", arguments: ["This is an echo message."])
+
+let result = try Process.checkNonZeroExit(args: "xcodebuild", "-showsdks")
+print(result)
 
 print("Hello, World!")

@@ -1,13 +1,13 @@
 //
 //  Action.swift
-//  XcodebuildKit
+//  XcodeBuildKit
 //
 //  Created by devedbox on 2018/1/20.
 //
 
 // MARK: - Action.
 
-extension Xcodebuild {
+extension XcodeBuild {
     public struct Action: OptionSet {
         /// The element type of the option set.
         public typealias RawValue = UInt
@@ -31,7 +31,7 @@ extension Xcodebuild {
         ///   of `rawValue` potentially represents an element of the option set,
         ///   though raw values may include bits that are not defined as distinct
         ///   values of the `OptionSet` type.
-        public init(rawValue: Xcodebuild.Action.RawValue) {
+        public init(rawValue: XcodeBuild.Action.RawValue) {
             _rawValue = rawValue
         }
         /// Command `build` for building the target in specific workspace or null.
@@ -55,14 +55,14 @@ extension Xcodebuild {
     }
 }
 
-extension Xcodebuild.Action: Hashable {
+extension XcodeBuild.Action: Hashable {
     public var hashValue: Int {
         return Int(_rawValue)
     }
 }
 
-/// All available sub commands for `xcodebuild`.
-private let _availableActionsMap: [Xcodebuild.Action: String] =
+/// All available sub commands for `XcodeBuild`.
+private let _availableActionsMap: [XcodeBuild.Action: String] =
 [.clean : "clean",
  .build : "build",
  .test : "test",
@@ -75,7 +75,7 @@ private let _availableActionsMap: [Xcodebuild.Action: String] =
 
 // MARK: - Commandable Conforming.
 
-extension Xcodebuild.Action: Commandable {
+extension XcodeBuild.Action: Commandable {
     public var command: String {
         return _availableActionsMap.filter({ self.contains($0.key) }).map({ $0.value }).joined(separator: " ")
     }

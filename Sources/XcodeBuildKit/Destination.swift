@@ -1,20 +1,20 @@
 //
 //  Destination.swift
-//  XcodebuildKit
+//  XcodeBuildKit
 //
 //  Created by devedbox on 2018/1/21.
 //
 
 // MARK: - Destination.
 
-extension Xcodebuild {
+extension XcodeBuild {
     /// Use the destination device described by destinationspecifier.
     /// Defaults to a destination that is compatible with the selected scheme.
     ///
     /// The -destination option takes as its argument a destination specifier describing the device (or devices)
     /// to use as a destination.  A destination specifier is a single argument consisting of a set of
     /// comma-separated key=value pairs.  The -destination option
-    /// may be specified multiple times to cause xcodebuild to perform the specified action on multiple destinations.
+    /// may be specified multiple times to cause XcodeBuild to perform the specified action on multiple destinations.
     ///
     /// Destination specifiers may include the platform key to specify one of the supported destination platforms.
     /// There are additional keys which should be supplied depending on the platform of the device you are selecting.
@@ -22,7 +22,7 @@ extension Xcodebuild {
     /// Some devices may take time to look up. The -destination-timeout option can be used to specify the amount of
     /// time to wait before a device is considered unavailable.  If unspecified, the default timeout is 30 seconds.
     ///
-    /// Currently, xcodebuild supports these platforms:
+    /// Currently, XcodeBuild supports these platforms:
     ///
     /// macOS              The local Mac, referred to in the Xcode interface as My Mac, and which supports the following key:
     ///                    - arch: The architecture to use, either x86_64 (the default) or i386.
@@ -85,13 +85,13 @@ extension Xcodebuild {
 
 // MARK: - Platforms.
 
-extension Xcodebuild.Destination {
+extension XcodeBuild.Destination {
     /// Creates a `macOS` Destination value with the given architecture.
     ///
     /// - Parameter arch: The architecture for the mac OS.
     /// - Returns: A macOS destinaton with the given architecture.
-    public static func macOS(_ arch: Architecture = .x86_64) -> Xcodebuild.Destination {
-        return Xcodebuild.Destination(platform: .macOS,
+    public static func macOS(_ arch: Architecture = .x86_64) -> XcodeBuild.Destination {
+        return XcodeBuild.Destination(platform: .macOS,
                                       architecture: arch,
                                       id: nil,
                                       name: nil,
@@ -103,9 +103,9 @@ extension Xcodebuild.Destination {
     /// - Parameter id: The id of the specific iOS device.
     ///
     /// - Returns: An iOS destinaton with the given name and id.
-    public static func iOS(_ device: iOSDevice?, id: String? = nil) -> Xcodebuild.Destination {
+    public static func iOS(_ device: iOSDevice?, id: String? = nil) -> XcodeBuild.Destination {
         precondition(!(device == nil && id == nil), "The id and name of the destination must not both be nil.")
-        return Xcodebuild.Destination(platform: .iOS,
+        return XcodeBuild.Destination(platform: .iOS,
                                       architecture: nil,
                                       id: id,
                                       name: device?.rawValue,
@@ -118,9 +118,9 @@ extension Xcodebuild.Destination {
     /// - Parameter OS: The OS version of the iOS Simulator device.
     ///
     /// - Returns: An iOS Simulator destinaton with the given name, id and OS version.
-    public static func iOSSimulator(_ device: iOSDevice?, id: String?, OS: String?) -> Xcodebuild.Destination {
+    public static func iOSSimulator(_ device: iOSDevice?, id: String?, OS: String?) -> XcodeBuild.Destination {
         precondition(!(device == nil && id == nil), "The id and name of the destination must not both be nil.")
-        return Xcodebuild.Destination(platform: .iOSSimulator,
+        return XcodeBuild.Destination(platform: .iOSSimulator,
                                       architecture: nil,
                                       id: id,
                                       name: device?.rawValue,
@@ -132,7 +132,7 @@ extension Xcodebuild.Destination {
     /// - Parameter id: The id of the specific watchOS device.
     ///
     /// - Returns: A watchOS destinaton with the given name and id.
-    public static func watchOS(_ device: iOSDevice?, id: String? = nil) -> Xcodebuild.Destination {
+    public static func watchOS(_ device: iOSDevice?, id: String? = nil) -> XcodeBuild.Destination {
         return iOS(device, id: id)
     }
     /// Creates a `watchOS Simulator` Destination value with the given id and name and OS version.
@@ -142,7 +142,7 @@ extension Xcodebuild.Destination {
     /// - Parameter OS: The OS version of the watchOS Simulator device.
     ///
     /// - Returns: A watchOS Simulator destinaton with the given name, id and OS version.
-    public static func watchOSSimulator(_ device: iOSDevice?, id: String?, OS: String?) -> Xcodebuild.Destination {
+    public static func watchOSSimulator(_ device: iOSDevice?, id: String?, OS: String?) -> XcodeBuild.Destination {
         return iOSSimulator(device, id: id, OS: OS)
     }
     /// Creates a `tvOS` Destination value with the given id and name.
@@ -151,9 +151,9 @@ extension Xcodebuild.Destination {
     /// - Parameter id: The id of the specific tvOS device.
     ///
     /// - Returns: A tvOS destinaton with the given name and id.
-    public static func tvOS(_ device: AppleTVDevice?, id: String? = nil) -> Xcodebuild.Destination {
+    public static func tvOS(_ device: AppleTVDevice?, id: String? = nil) -> XcodeBuild.Destination {
         precondition(!(device == nil && id == nil), "The id and name of the destination must not both be nil.")
-        return Xcodebuild.Destination(platform: .tvOS,
+        return XcodeBuild.Destination(platform: .tvOS,
                                       architecture: nil,
                                       id: id,
                                       name: device?.rawValue,
@@ -166,9 +166,9 @@ extension Xcodebuild.Destination {
     /// - Parameter OS: The OS version of the tvOS Simulator device.
     ///
     /// - Returns: A tvOS Simulator destinaton with the given name, id and OS version.
-    public static func tvOSSimulator(_ device: AppleTVDevice?, id: String?, OS: String?) -> Xcodebuild.Destination {
+    public static func tvOSSimulator(_ device: AppleTVDevice?, id: String?, OS: String?) -> XcodeBuild.Destination {
         precondition(!(device == nil && id == nil), "The id and name of the destination must not both be nil.")
-        return Xcodebuild.Destination(platform: .tvOSSimulator,
+        return XcodeBuild.Destination(platform: .tvOSSimulator,
                                       architecture: nil,
                                       id: id,
                                       name: device?.rawValue,
@@ -178,7 +178,7 @@ extension Xcodebuild.Destination {
 
 // MARK: - Commandable Conforming.
 
-extension Xcodebuild.Destination: Commandable {
+extension XcodeBuild.Destination: Commandable {
     public var command: String {
         let args = [("platform", platform.rawValue),
                     ("arch", architecture?.rawValue),
@@ -196,7 +196,7 @@ extension Xcodebuild.Destination: Commandable {
         The -destination option takes as its argument a destination specifier describing the device (or devices)
         to use as a destination.  A destination specifier is a single argument consisting of a set of
         comma-separated key=value pairs.  The -destination option
-        may be specified multiple times to cause xcodebuild to perform the specified action on multiple destinations.
+        may be specified multiple times to cause XcodeBuild to perform the specified action on multiple destinations.
         
         Destination specifiers may include the platform key to specify one of the supported destination platforms.
         There are additional keys which should be supplied depending on the platform of the device you are selecting.

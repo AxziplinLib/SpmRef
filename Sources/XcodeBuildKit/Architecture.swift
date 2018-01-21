@@ -1,13 +1,13 @@
 //
 //  Architecture.swift
-//  XcodebuildKit
+//  XcodeBuildKit
 //
 //  Created by devedbox on 2018/1/21.
 //
  
 // MARK: - Architecture.
 
-/// The available architectures for xcodebuild commands.
+/// The available architectures for XcodeBuild commands.
 public enum Architecture: String {
     /// Arch for 64bit mac OS and simulators.
     case x86_64 = "x86_64"

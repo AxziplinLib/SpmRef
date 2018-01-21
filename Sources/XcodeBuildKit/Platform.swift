@@ -1,13 +1,13 @@
 //
 //  Platform.swift
-//  XcodebuildKit
+//  XcodeBuildKit
 //
 //  Created by devedbox on 2018/1/21.
 //
 
 // MARK: - Platform.
 
-/// The available platforms for the xcodebuild commands.
+/// The available platforms for the XcodeBuild commands.
 public enum Platform: String {
     /// Raw value type.
     public typealias RawValue = String
