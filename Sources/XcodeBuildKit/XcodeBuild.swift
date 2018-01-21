@@ -91,7 +91,7 @@ extension XcodeBuild {
 /// Check the current build version and xcode version and report to console
 /// if needed.
 private func _checkVersions() {
-    let version = XcodeBuild.version.split(separator: "\n").joined(separator: "  ")
+    let version = XcodeBuild.version.split(separator: "\n").joined(separator: " ")
     let xcode_version = XcodeBuild.xcodeVersion.split(separator: "\n").joined(separator: " ")
     if version != xcode_version {
         print("""
@@ -102,7 +102,8 @@ private func _checkVersions() {
             Please check the diffs between versions!!!
             
             """
-            .red)
+            .applyingStyle(.underline)
+            .yellow)
     }
 }
 
