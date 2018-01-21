@@ -5,6 +5,8 @@
 //  Created by devedbox on 2018/1/20.
 //
 
+// MARK: - Option.
+
 extension XcodeBuild {
     public struct Option {
         /// The option using to run xodebuild command.
@@ -23,11 +25,27 @@ extension XcodeBuild.Option {
     }
 }
 
-extension XcodeBuild.Option {
-    public mutating func makeBuildSettings() -> XcodeBuild.Option {
-        self.isBuildSettings = true
+// MARK: - Commandable Conforming.
+
+extension XcodeBuild.Option: Commandable {
+    public var command: String {
+        let args = [isBuildSettings ? "" : "-" + option, arguments]
+        return args.flatMap({ $0 }).joined(separator: " ")
+    }
+    
+    public var description: String {
+        return """
+        To build an Xcode workspace, you must pass both the -workspace and -scheme options to define the build.
+        The parameters of the scheme will control which targets are built and how they are built, although you may pass other options to xcodebuild to override
+        some parameters of the scheme.
+        
+        There are also several options that display info about the installed version of Xcode or about projects or workspaces in the local directory,
+        but which do not initiate an action.  These include -list, -showBuildSettings, -showsdks, -usage, and -version.
+        """
     }
 }
+
+// MARK: - Targets & Locations.
 
 extension XcodeBuild.Option {
     /// Build the project name.xcodeproj.  Required if there are multiple project files in the same directory.
@@ -251,11 +269,11 @@ extension XcodeBuild.Option {
     /// A detailed reference of Xcode build settings can be found
     /// at: <https://help.apple.com/xcode/mac/current/#/itcaec37c2a6>
     public static func buildSettings(_ buildSettings: String, value: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "\(buildSettings)=\(value)").makeBuildSettings()
+        return XcodeBuild.Option(option: "\(buildSettings)=\(value)", arguments: nil, isBuildSettings: true)
     }
     /// Set the user default `userdefault` to `value`.
     public static func userDefault(_ userDefault: String, value: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "\(userDefault)=\(value)").makeBuildSettings()
+        return XcodeBuild.Option(option: "\(userDefault)=\(value)", arguments: nil, isBuildSettings: true)
     }
 }
 
