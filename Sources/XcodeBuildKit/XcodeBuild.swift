@@ -79,11 +79,10 @@ extension XcodeBuild {
         """
     }
     /// Get the version of the `xcodebuild` command of the system.
-    public static var xcodeVersion: String {
+    public static var xcodeVersion: Result {
         return
             run("xcrun",
                 arguments: XcodeBuild.arguments(options: .version))
-                .output
     }
 }
 
@@ -93,7 +92,7 @@ extension XcodeBuild {
 /// if needed.
 private func _checkVersions() {
     let version = XcodeBuild.version.split(separator: "\n").joined(separator: " ")
-    let xcode_version = XcodeBuild.xcodeVersion.split(separator: "\n").joined(separator: " ")
+    let xcode_version = XcodeBuild.xcodeVersion.output.split(separator: "\n").joined(separator: " ")
     if version != xcode_version {
         print("""
             
