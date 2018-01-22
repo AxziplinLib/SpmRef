@@ -65,3 +65,9 @@ public func run(_ command: String, arguments: [String], at currentWorkingDirecto
     
     return (output ?? "Can not read the output data.", process.terminationStatus)
 }
+/// Returns the date description from current date.
+public func describedDate(from format: String, date: Date = Date()) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = format
+    return formatter.string(from: date)
+}
