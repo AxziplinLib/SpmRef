@@ -83,6 +83,7 @@ extension XcodeBuild {
         return
             run("xcrun",
                 arguments: XcodeBuild.arguments(options: .version))
+                .output
     }
 }
 
@@ -112,13 +113,13 @@ extension XcodeBuild {
     ///
     /// - Parameter cwd: The current-working-directory of the process to run.
     /// - Returns: The result of the `xcodebuild` command.
-    public func launch(`in` cwd: String? = nil) -> String {
+    public func launch(at cwd: String? = nil) -> Result {
         let args = arguments
         precondition(args.count > 1, "The arguments of xcodebuild should not be 0.")
         _checkVersions()
         return
             run(args[0],
                 arguments: Array(args.dropFirst()),
-                in: cwd)
+                at: cwd)
     }
 }

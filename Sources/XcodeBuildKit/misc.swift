@@ -12,6 +12,8 @@ import Darwin.C
 #endif
 import Foundation
 
+public typealias Result = (output: String, exitCode: Int32)
+
 /// Returns the environment variable path of the system if any.
 public var envPaths: [String] = { () -> [String] in
     let env_paths = getenv("PATH")
@@ -41,7 +43,7 @@ public func executable(_ name: String) -> String? {
 /// - Parameter arguments: The arguments for the command to run with.
 ///
 /// - Returns: The stdoutput or stderror results.
-public func run(_ command: String, arguments: [String], `in` currentWorkingDirectory: String? = nil) -> String {
+public func run(_ command: String, arguments: [String], at currentWorkingDirectory: String? = nil) -> Result {
     // Creates a new process.
     let process = Process()
     // Changing the current working path if needed.
@@ -61,5 +63,5 @@ public func run(_ command: String, arguments: [String], `in` currentWorkingDirec
     let data = file.readDataToEndOfFile()
     let output = String(data: data, encoding: .utf8)
     
-    return output ?? "Can not read the output data."
+    return (output ?? "Can not read the output data.", process.terminationStatus)
 }
