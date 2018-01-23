@@ -29,7 +29,7 @@ extension XcodeBuild.Option {
 
 extension XcodeBuild.Option: Commandable {
     public var arguments: [String] {
-        return [isBuildSettings ? "" : "-" + option, args].flatMap({ $0 })
+        return [(isBuildSettings ? "" : "-") + option, args].flatMap({ $0 })
     }
     
     public var description: String {
