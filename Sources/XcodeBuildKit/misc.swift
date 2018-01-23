@@ -43,6 +43,7 @@ public func executable(_ name: String) -> String? {
 /// - Parameter arguments: The arguments for the command to run with.
 ///
 /// - Returns: The stdoutput or stderror results.
+@discardableResult
 public func run(_ command: String, arguments: [String], at currentWorkingDirectory: String? = nil) -> Result {
     // Creates a new process.
     let process = Process()
