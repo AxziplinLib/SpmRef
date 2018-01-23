@@ -61,8 +61,7 @@ extension XcodeBuild: Commandable {
     public var arguments: [String] {
         return ["xcodebuild"]
             + actions.arguments
-            + options.map({ $0.command })
-                .filter({ $0.lengthOfBytes(using: .utf8) > 0 })
+            + options.flatMap({ $0.arguments })
     }
     /// The description of XcodeBuild command.
     public var description: String {
