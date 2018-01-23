@@ -267,8 +267,8 @@ extension XcodeBuild.Option {
     /// Set the build setting `buildsetting` to `value`.
     /// A detailed reference of Xcode build settings can be found
     /// at: <https://help.apple.com/xcode/mac/current/#/itcaec37c2a6>
-    public static func buildSettings(_ buildSettings: String, value: String) -> XcodeBuild.Option {
-        return XcodeBuild.Option(option: "\(buildSettings)=\(value)", args: nil, isBuildSettings: true)
+    public static func buildSetting(_ buildSetting: XcodeBuild.BuildSetting) -> XcodeBuild.Option {
+        return XcodeBuild.Option(option: "\(buildSetting.command)", args: nil, isBuildSettings: true)
     }
     /// Set the user default `userdefault` to `value`.
     public static func userDefault(_ userDefault: String, value: String) -> XcodeBuild.Option {
