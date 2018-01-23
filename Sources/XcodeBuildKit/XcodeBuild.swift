@@ -12,9 +12,9 @@ import Rainbow
 public struct XcodeBuild {
     /// The actions of the `xcodebuild` command. Use this to specify the actions the run the
     /// `xcodebuild` command such as `clean`, `build` and so on.
-    var actions: Action = []
+    public var actions: Action = []
     /// The options to run with `xcodebuild`. e.g.: `-verbose`, `-target`.
-    var options: [Option] = []
+    public var options: [Option] = []
 }
 
 extension XcodeBuild {
@@ -59,7 +59,10 @@ extension XcodeBuild {
 extension XcodeBuild: Commandable {
     /// Get the arguments of the commands.
     public var arguments: [String] {
-        return ["xcodebuild"] + actions.arguments + options.map({ $0.command })
+        return ["xcodebuild"]
+            + actions.arguments
+            + options.map({ $0.command })
+                .filter({ $0.lengthOfBytes(using: .utf8) > 0 })
     }
     /// The description of XcodeBuild command.
     public var description: String {
@@ -112,6 +115,7 @@ extension XcodeBuild {
     ///
     /// - Parameter cwd: The current-working-directory of the process to run.
     /// - Returns: The result of the `xcodebuild` command.
+    @discardableResult
     public func launch(at cwd: String? = nil) -> Result {
         let args = arguments
         precondition(args.count > 1, "The arguments of xcodebuild should not be 0.")
@@ -121,4 +125,10 @@ extension XcodeBuild {
                 arguments: Array(args.dropFirst()),
                 at: cwd)
     }
+}
+
+// MARK: - Flows.
+
+extension XcodeBuild {
+    
 }
