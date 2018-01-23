@@ -19,6 +19,22 @@ extension XcodeBuild {
     }
 }
 
+// MARK: - Commandable Conforming.
+
+extension XcodeBuild.BuildSetting: Commandable {
+    public var arguments: [String] {
+        return ["\(name)=\(value)"]
+    }
+    
+    public var description: String {
+        return """
+        Set the build setting buildsetting to value.
+        
+        A detailed reference of Xcode build settings can be found at: <https://help.apple.com/xcode/mac/current/#/itcaec37c2a6>
+        """
+    }
+}
+
 // MARK: - BuildSetting Fields.
 
 // Build setting references at: https://help.apple.com/xcode/mac/current/#/itcaec37c2a6
