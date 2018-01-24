@@ -1,5 +1,5 @@
 import XCTest
-@testable import SpmRef
+@testable import SpmRefKit
 
 class SpmRefTests: XCTestCase {
     func testExample() {
