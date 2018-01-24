@@ -5,6 +5,8 @@
 //  Created by devedbox on 2018/1/20.
 //
 
+import Foundation
+
 // MARK: - Option.
 
 extension XcodeBuild {
@@ -321,5 +323,86 @@ extension XcodeBuild.Option {
     /// output as JSON (note: -json implies -quiet)
     public static var json: XcodeBuild.Option {
         return XcodeBuild.Option(option: "json")
+    }
+}
+
+// MARK: - Generator.
+
+extension XcodeBuild.Option {
+    /// Generate test codes to run the unit test of XcodeBuild.Option.
+    public static func generateTestCodes(at sourcePath: String) {
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: sourcePath))
+            , let sourceCodes = String(data: data, encoding: .utf8)
+            , let regex = try? NSRegularExpression(pattern: "\"[A-Z][a-z]*[0-9]*\"", options: [.caseInsensitive]) else { return }
+        
+        let matches = regex.matches(in: sourceCodes,
+                                    options: [.reportCompletion],
+                                    range: NSRange(location: 0,
+                                                   length: sourceCodes.lengthOfBytes(using: .utf8)))
+        func range(from nsrange: NSRange) -> Range<String.Index> {
+            let start =
+                sourceCodes.utf16.index(sourceCodes.utf16.startIndex,
+                                        offsetBy: nsrange.location,
+                                        limitedBy: sourceCodes.utf16.endIndex)!
+            let end =
+                sourceCodes.utf16.index(start,
+                                        offsetBy: nsrange.length,
+                                        limitedBy: sourceCodes.utf16.endIndex)!
+            
+            return start..<end
+        }
+        
+        let results =
+            matches
+            .map({ sourceCodes[range(from: $0.range)]
+                .replacingOccurrences(of: "\"", with: "") })
+            .filter({ !["YES", "NO", "XcodeBuildKit"].contains($0) })
+        
+        var testCodes = """
+        //
+        //  OptionTests.swift
+        //  XcodeBuildKitTests
+        //
+        //  Created by devedbox on \(describedDate(from: "yyyy/MM/dd")).
+        //
+
+        import XCTest
+        @testable import XcodeBuildKit
+
+        class OptionTests: XCTestCase {
+        \tfunc testExample() {
+        \t\t// This is an example of a functional test case.
+        \t\t// Use XCTAssert and related functions to verify your tests produce the correct
+        \t\t// results.
+        \t\t// XCTAssertEqual(SpmRef().text, "Hello, World!")
+        \t}\n\n
+        """
+        
+        results.forEach { string in
+            testCodes += """
+            \tfunc test\(String(string.first!).uppercased() + string.dropFirst())Option() {
+            \t\tlet option: XcodeBuild.Option = .\(string)(option: "XcodeBuildKit")
+            \t\tXCTAssertEqual("-\(string) XcodeBuildKit", \(string).command)
+            \t\tXCTAssertEqual(["-\(string)", "XcodeBuildKit"], option.arguments)
+            \t}\n\n
+            """
+        }
+        testCodes += """
+        \tstatic var allTests = [
+        \t\t("testExample", testExample),\n
+        """
+        testCodes +=
+            results
+                .map({ """
+                    \t\t(\"test\(String($0.first!).uppercased()
+                    + $0.dropFirst())Option\", test\(String($0.first!).uppercased()
+                    + $0.dropFirst())Option),
+                    """ })
+                .joined(separator: "\n")
+        testCodes += """
+        \n\t]
+        }
+        """
+        print(testCodes)
     }
 }
