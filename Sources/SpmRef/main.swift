@@ -17,9 +17,9 @@ import Foundation
 // print(envPaths)
 // print(result)
 
-print(FileManager.default.currentDirectoryPath)
-print(XcodeBuild.execute(options: .showsSDKs).launch())
-print(XcodeBuild.xcodeVersion)
+//print(FileManager.default.currentDirectoryPath)
+// print(XcodeBuild.execute(options: .showsSDKs).launch())
+// print(XcodeBuild.xcodeVersion)
 
 let path = "/Users/devedbox/Library/Mobile Documents/com~apple~CloudDocs/Development/SpmRef"
 // let path = "/Users/devedbox/Desktop/AXAlertController"
@@ -32,7 +32,20 @@ let path = "/Users/devedbox/Library/Mobile Documents/com~apple~CloudDocs/Develop
 //                                              includingPropertiesForKeys: nil,
 //                                              options: []))
 
-let project = try Project.project(at: path)
-print(project)
+// let project = try Project.project(at: path)
+// print(project)
 
-print("Hello, World!")
+// print("Hello, World!")
+
+// let buildSettingsReferences =
+// print(XcodeBuild.BuildSetting.generateSourceCode(from: path + "/Sources/XcodeBuildKit/BuildSettingsReference"))
+// print(buildSettingsReferences)
+
+//let settings = [
+//]
+
+XcodeBuild.execute(options: .project(named: "SpmRef"), .target(named: "spmref"), .buildSetting(.action(XcodeBuild.Action.clean.command))).launch(at: path)
+//run("xcodebuild",
+//    arguments: ["-project", "SpmRef", "-target", "spm", "ACTION=build"],
+//    at: path)
+

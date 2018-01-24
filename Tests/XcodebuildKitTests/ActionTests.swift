@@ -17,58 +17,65 @@ class ActionTests: XCTestCase {
     }
     
     func testCleanCommand() {
-        let Action = XcodeBuild.Action.clean
-        XCTAssertEqual("clean", Action.command)
+        let action = XcodeBuild.Action.clean
+        XCTAssertEqual("clean", action.command)
     }
     
     func testBuildCommand() {
-        let Action = XcodeBuild.Action.build
-        XCTAssertEqual("build", Action.command)
+        let action = XcodeBuild.Action.build
+        XCTAssertEqual("build", action.command)
     }
     
     func testTestCommand() {
-        let Action = XcodeBuild.Action.test
-        XCTAssertEqual("test", Action.command)
+        let action = XcodeBuild.Action.test
+        XCTAssertEqual("test", action.command)
     }
     
     func testInstallCommand() {
-        let Action = XcodeBuild.Action.install
-        XCTAssertEqual("install", Action.command)
+        let action = XcodeBuild.Action.install
+        XCTAssertEqual("install", action.command)
     }
     
     func testInstallSrcCommand() {
-        let Action = XcodeBuild.Action.installSrc
-        XCTAssertEqual("install-src", Action.command)
+        let action = XcodeBuild.Action.installSrc
+        XCTAssertEqual("install-src", action.command)
     }
     
     func testAnalyzeCommand() {
-        let Action = XcodeBuild.Action.analyze
-        XCTAssertEqual("analyze", Action.command)
+        let action = XcodeBuild.Action.analyze
+        XCTAssertEqual("analyze", action.command)
     }
     
     func testArchiveCommand() {
-        let Action = XcodeBuild.Action.archive
-        XCTAssertEqual("archive", Action.command)
+        let action = XcodeBuild.Action.archive
+        XCTAssertEqual("archive", action.command)
     }
     
     func testBuildForTestingCommand() {
-        let Action = XcodeBuild.Action.buildForTesting
-        XCTAssertEqual("build-for-testing", Action.command)
+        let action = XcodeBuild.Action.buildForTesting
+        XCTAssertEqual("build-for-testing", action.command)
     }
     
     func testTestWithoutBuildingCommand() {
-        let Action = XcodeBuild.Action.testWithoutBuilding
-        XCTAssertEqual("test-without-building", Action.command)
+        let action = XcodeBuild.Action.testWithoutBuilding
+        XCTAssertEqual("test-without-building", action.command)
     }
     
     func testCleanBuildCommand() {
-        let Action: XcodeBuild.Action = [.build, .clean]
-        XCTAssertEqual("build clean", Action.command)
+        let action: XcodeBuild.Action = [.build, .clean]
+        XCTAssertEqual("build clean", action.command)
+        XCTAssertEqual(["build", "clean"], action.arguments)
     }
     
     func testNullCommand() {
-        let Action: XcodeBuild.Action = []
-        XCTAssertEqual("", Action.command)
+        let action: XcodeBuild.Action = []
+        XCTAssertEqual("", action.command)
+    }
+    
+    func testMultipleActions() {
+        let action: XcodeBuild.Action = [.build, .clean, .test]
+        XCTAssertEqual("test build clean", action.command)
+        XCTAssertEqual(["test", "build", "clean"], action.arguments)
     }
     
     static var allTests = [
@@ -83,5 +90,6 @@ class ActionTests: XCTestCase {
         ("testTestWithoutBuildingCommand", testTestWithoutBuildingCommand),
         ("testCleanBuildCommand", testCleanBuildCommand),
         ("testNullCommand", testNullCommand),
+        ("testMultipleActions", testMultipleActions),
     ]
 }

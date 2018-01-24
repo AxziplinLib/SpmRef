@@ -40,8 +40,8 @@ extension XcodeBuild.BuildSetting: Commandable {
 // Build setting references at: https://help.apple.com/xcode/mac/current/#/itcaec37c2a6
 extension XcodeBuild.BuildSetting {
     /// A string identifying the build system action being performed.
-    public static func action(_ value: String) -> XcodeBuild.BuildSetting {
-        return XcodeBuild.BuildSetting(name: "ACTION", value: value)
+    public static func action(_ value: XcodeBuild.Action) -> XcodeBuild.BuildSetting {
+        return XcodeBuild.BuildSetting(name: "ACTION", value: value.command)
     }
     /// The locations of any sparse SDKs that should be layered on top of the one specified by [Base SDK (SDKROOT)](https://help.apple.com/xcode/mac/current/#/itcaec37c2a6?sub=devabcaadbaf). If more than one SDK is listed, the first one has highest precedence. Every SDK specified in this setting should be a "sparse" SDK, for example, not an SDK for an entire macOS release.
     public static func additionalSdks(_ value: String) -> XcodeBuild.BuildSetting {
