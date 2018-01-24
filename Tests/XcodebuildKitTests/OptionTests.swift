@@ -28,6 +28,8 @@ class OptionTests: XCTestCase {
     
     static var allTests = [
         ("testExample", testExample),
+        ("testOptionCommand", testOptionCommand),
+        ("testOptionArguments", testOptionArguments),
     ]
 }
 
