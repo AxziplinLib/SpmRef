@@ -2023,7 +2023,8 @@ extension XcodeBuild.BuildSetting {
 // MARK: - Generator.
 
 extension XcodeBuild.BuildSetting {
-    public static func generateSourceCode(from markdownFilePath: String) -> String {
+    /// Generate source codes from build setting references markdown file.
+    private static func generateSourceCode(from markdownFilePath: String) -> String {
         var buildSetting_ex: String = """
         
         // MARK: - BuildSetting Fields.
