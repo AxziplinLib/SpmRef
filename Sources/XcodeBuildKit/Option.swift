@@ -330,6 +330,7 @@ extension XcodeBuild.Option {
 
 extension XcodeBuild.Option {
     /// Generate test codes to run the unit test of XcodeBuild.Option.
+    @available(*, unavailable)
     private static func generateTestCodes(at sourcePath: String) {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: sourcePath))
             , let sourceCodes = String(data: data, encoding: .utf8)
