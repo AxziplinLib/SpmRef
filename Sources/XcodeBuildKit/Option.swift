@@ -330,7 +330,7 @@ extension XcodeBuild.Option {
 
 extension XcodeBuild.Option {
     /// Generate test codes to run the unit test of XcodeBuild.Option.
-    public static func generateTestCodes(at sourcePath: String) {
+    private static func generateTestCodes(at sourcePath: String) {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: sourcePath))
             , let sourceCodes = String(data: data, encoding: .utf8)
             , let regex = try? NSRegularExpression(pattern: "\"[A-Z][a-z]*[0-9]*\"", options: [.caseInsensitive]) else { return }
@@ -356,14 +356,14 @@ extension XcodeBuild.Option {
             matches
             .map({ sourceCodes[range(from: $0.range)]
                 .replacingOccurrences(of: "\"", with: "") })
-            .filter({ !["YES", "NO", "XcodeBuildKit"].contains($0) })
+            .filter({ !["YES", "NO", "XcodeBuildKit", "testExample"].contains($0) })
         
         var testCodes = """
         //
         //  OptionTests.swift
         //  XcodeBuildKitTests
         //
-        //  Created by devedbox on \(describedDate(from: "yyyy/MM/dd")).
+        //  Created by devedbox on \(describedDate(from: "yyyy/MM/dd").replacingOccurrences(of: "/0", with: "/")).
         //
 
         import XCTest
@@ -374,16 +374,42 @@ extension XcodeBuild.Option {
         \t\t// This is an example of a functional test case.
         \t\t// Use XCTAssert and related functions to verify your tests produce the correct
         \t\t// results.
-        \t\t// XCTAssertEqual(SpmRef().text, "Hello, World!")
+        \t\t// XCTAssertEqual(Option().text, "Hello, World!")
         \t}\n\n
         """
         
+        func functionContent(`for` functionName: String) -> String {
+            if let regex = try? NSRegularExpression(pattern: "\(functionName)\\([_\\sA-Za-z0-9]*:",
+                                                    options: [.caseInsensitive])
+             , let match = regex.firstMatch(in: sourceCodes,
+                                            options: [],
+                                            range: NSRange(location: 0,
+                                                           length: sourceCodes.lengthOfBytes(using: .utf8))) {
+                let result =
+                "(\(sourceCodes[range(from: match.range)].replacingOccurrences(of: "\(functionName)(", with: "")))"
+                    .split(separator: " ").first
+                
+                return "\(result ?? ""): \"XcodeBuildKit\")".replacingOccurrences(of: "_: ", with: "")
+            } else if let regex = try? NSRegularExpression(pattern: "var\\s\(functionName)[_\\sA-Za-z0-9]*:", options: [.caseInsensitive])
+                , let _ = regex.firstMatch(in: sourceCodes,
+                                           options: [],
+                                           range: NSRange(location: 0,
+                                                          length: sourceCodes.lengthOfBytes(using: .utf8))) {
+                return ""
+            } else {
+                return """
+                (option: "XcodeBuildKit")
+                """
+            }
+        }
+        
         results.forEach { string in
+            let func_c = functionContent(for: string)
             testCodes += """
             \tfunc test\(String(string.first!).uppercased() + string.dropFirst())Option() {
-            \t\tlet option: XcodeBuild.Option = .\(string)(option: "XcodeBuildKit")
-            \t\tXCTAssertEqual("-\(string) XcodeBuildKit", \(string).command)
-            \t\tXCTAssertEqual(["-\(string)", "XcodeBuildKit"], option.arguments)
+            \t\tlet option: XcodeBuild.Option = .\(string)\(func_c)
+            \t\tXCTAssertEqual("-\(string)\(func_c.contains("XcodeBuildKit") ? " XcodeBuildKit" : "")", option.command)
+            \t\tXCTAssertEqual(["-\(string)"\(func_c.contains("XcodeBuildKit") ? ", \"XcodeBuildKit\"" : "")], option.arguments)
             \t}\n\n
             """
         }
