@@ -19,6 +19,7 @@ let package = Package(
         .package(url: "https://github.com/nsomar/Swiftline.git", from: "0.5.0"),
         .package(url: "https://github.com/apple/swift-package-manager.git", from: "0.1.0"),
         .package(url: "https://github.com/onevcat/Rainbow.git", from: "3.0.3"),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "0.8.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -31,13 +32,15 @@ let package = Package(
             dependencies: []),
         .target(
             name: "XcodeBuildKit",
-            dependencies: ["Rainbow"]),
+            dependencies: ["Rainbow",
+                           "CryptoSwift"]),
         .target(
             name: "spmref",
             dependencies: ["SpmRefKit",
                            "XcodeBuildKit",
                            "SwiftPM",
-                           "Rainbow"]),
+                           "Rainbow",
+                           "CryptoSwift"]),
         .testTarget(
             name: "SpmRefTests",
             dependencies: ["SpmRefKit"],
