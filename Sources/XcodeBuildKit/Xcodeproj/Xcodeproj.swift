@@ -15,7 +15,11 @@ public protocol PBXObject {
 
 extension PBXObject {
     public var reference: String {
-        return UUID().uuidString.md5()
+        return
+            UUID()
+                .uuidString
+                .replacingOccurrences(of: "-", with: "")
+                .uppercased()
     }
     
     public var isa: String { return String(describing: type(of: self)) }

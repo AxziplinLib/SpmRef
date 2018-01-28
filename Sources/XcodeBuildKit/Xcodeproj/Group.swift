@@ -17,4 +17,14 @@ public struct PBXGourp: PBXFileElement {
     
     /// The children elements managed by the group.
     public var children: [PBXFileElement]
+    
+    public init(_ sourceTree: PBXSourceTree = .group,
+                name: String,
+                path: String,
+                children: [PBXFileElement]) {
+        self.sourceTree = sourceTree
+        self.name = name
+        self.path = path
+        self.children = children
+    }
 }

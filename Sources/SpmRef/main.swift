@@ -64,4 +64,6 @@ let path = "/Users/devedbox/Library/Mobile Documents/com~apple~CloudDocs/Develop
 // 1E475B4D402A3B9AC57D808BBE5B4D7C
 // DCEEAB97201B7A750007DC8C
 // print(UUID().uuidString.split(separator: "-").joined())
-
+let group = PBXGourp(.absolute, name: "Group", path: "path/", children: [])
+print(group.isa)
+print(group.reference)
