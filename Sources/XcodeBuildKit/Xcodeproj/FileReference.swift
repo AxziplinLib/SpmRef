@@ -9,7 +9,14 @@
 
 /// A PBXFileReference is used to track every external file referenced by the project:
 /// source files, resource files, libraries, generated application files, and so on.
-public struct PBXFileReference {
+public struct PBXFileReference: PBXFileElement {
+    /// The source tree type of the file reference.
+    public var sourceTree: PBXSourceTree
+    /// The filename.
+    public var name: String
+    /// The path of the file reference.
+    public var path: String
+    
     /// The encoding of the content of the file. Available values defined in `FileEncoding`.
     public var fileEncoding: FileEncoding?
     /// The file type of the file reference.
