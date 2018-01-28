@@ -15,6 +15,6 @@ public struct PBXGourp: PBXFileElement {
     /// The path of the group.
     public var path: String
     
-    /// The children managed by the group.
+    /// The children elements managed by the group.
     public var children: [PBXFileElement]
 }
