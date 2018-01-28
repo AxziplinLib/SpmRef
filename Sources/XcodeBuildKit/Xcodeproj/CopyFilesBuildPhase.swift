@@ -7,6 +7,7 @@
 
 // MARK: - PBXCopyFilesBuildPhase.
 
+/// A type reprensets the build phase of copying files.
 public struct PBXCopyFilesBuildPhase: PBXBuildPhase {
     /// The build action mask of the build phase.
     public var buildActionMask: UInt = 2147483647
