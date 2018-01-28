@@ -12,6 +12,10 @@
 public struct PBXFileReference {
     /// The encoding of the content of the file. Available values defined in `FileEncoding`.
     public var fileEncoding: FileEncoding?
+    /// The file type of the file reference.
+    public var explicitFileType: FileType?
+    /// The last known file type of the file reference.
+    public var lastKnownFileType: FileType?
     /// The line ending value of the file. Default is nil.
     public var lineEnding: LineEnding?
     /// The indent width of the file. Default is nil.

@@ -53,14 +53,15 @@ let path = "/Users/devedbox/Library/Mobile Documents/com~apple~CloudDocs/Develop
 //    at: path)
 
 // XcodeBuild.Option.generateTestCodes(at: path)
-if let data = try? Data(contentsOf: URL(fileURLWithPath: path + "/SpmRef.xcodeproj/project.pbxproj")) {
-    var plistFormat = PropertyListSerialization.PropertyListFormat.openStep
-    let plist = try? PropertyListSerialization.propertyList(from: data,
-                                                            options: [],
-                                                            format: &plistFormat) as? Dictionary<String, Any>
-    print(plist!)
-}
+//if let data = try? Data(contentsOf: URL(fileURLWithPath: path + "/SpmRef.xcodeproj/project.pbxproj")) {
+//    var plistFormat = PropertyListSerialization.PropertyListFormat.openStep
+//    let plist = try? PropertyListSerialization.propertyList(from: data,
+//                                                            options: [],
+//                                                            format: &plistFormat) as? Dictionary<String, Any>
+//    print(plist!)
+//}
 // 05E73411EB5078B321C31C0B9414F7DA
 // 1E475B4D402A3B9AC57D808BBE5B4D7C
 // DCEEAB97201B7A750007DC8C
-print(UUID().uuidString.split(separator: "-").joined())
+// print(UUID().uuidString.split(separator: "-").joined())
+
